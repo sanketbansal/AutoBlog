@@ -40,4 +40,5 @@ class StartupSpider(scrapy.Spider):
         #      yield response.follow(url, callback=self.parse_article)
 
         article_url = response.css('article a.post-card__media::attr(href)').getall()
+        print(article_url, '\n')
         # yield response.follow(article_url, callback=self.parse_article)
