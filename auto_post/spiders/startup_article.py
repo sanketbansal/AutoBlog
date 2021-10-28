@@ -1,8 +1,6 @@
 import re, os
 from requests.api import post
 import scrapy
-from selenium import webdriver
-# from wrdprs import create_post
 
 import requests
 import json, base64, re
