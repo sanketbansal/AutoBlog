@@ -39,5 +39,5 @@ class StartupSpider(scrapy.Spider):
         # for url in article_url:
         #      yield response.follow(url, callback=self.parse_article)
 
-        article_url = response.css('article a.post-card__media::attr(href)').get()
+        article_url = response.css('article a.post-card__media::attr(href)').getall()
         # yield response.follow(article_url, callback=self.parse_article)
