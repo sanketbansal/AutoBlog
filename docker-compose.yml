@@ -1,0 +1,87 @@
+ version: "3.7"
+
+ services:
+  startup-pages:
+    container_name: startup-pages
+    image: laviz.azurecr.io/startups/crawl-startup-pages
+    build:
+      context: ./startups
+      dockerfile: startup.dockerfile
+      args:
+        spider: pages
+        cnt: 1
+    ports:
+      - 80:80
+    # volumes:
+    #   - ./startups:/startups
+
+  startup-articles:
+    container_name: startup-articles
+    image: laviz.azurecr.io/startups/crawl-startup-articles
+    build:
+      context: ./startups
+      dockerfile: startup.dockerfile
+      args:
+        spider: articles
+        cnt: 1
+    ports:
+      - 80:80
+    # volumes:
+    #   - ./startups:/startups
+
+  luxe-digital-pages:
+    container_name: luxe-digital-pages
+    image: laviz.azurecr.io/luxe-digital/pages
+    build:
+      context: ./luxe-digital
+      dockerfile: luxe-digital.dockerfile
+      args:
+        spider: pages
+        cnt: 1
+    ports:
+      - 81:80
+    # volumes:
+    #   - ./startups:/startups
+
+  luxe-digital-articles:
+    container_name: luxe-digital-articles
+    image: laviz.azurecr.io/luxe-digital/articles
+    build:
+      context: ./luxe-digital
+      dockerfile: luxe-digital.dockerfile
+      args:
+        spider: articles
+        cnt: 3
+    ports:
+      - 81:80
+    # volumes:
+    #   - ./startups:/startups
+
+  elitechoice-pages:
+    container_name: elitechoice-pages
+    image: laviz.azurecr.io/elitechoice/pages
+    build:
+      context: ./elitechoice
+      dockerfile: elitechoice.dockerfile
+      args:
+        spider: pages
+        cnt: 1
+    ports:
+      - 80:80
+    # volumes:
+    #   - ./startups:/startups
+
+
+  elitechoice-articles:
+    container_name: elitechoice-articles
+    image: laviz.azurecr.io/elitechoice/articles
+    build:
+      context: ./elitechoice
+      dockerfile: elitechoice.dockerfile
+      args:
+        spider: articles
+        cnt: 3
+    ports:
+      - 80:80
+    # volumes:
+    #   - ./startups:/startups
