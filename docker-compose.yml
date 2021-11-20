@@ -71,7 +71,6 @@
     # volumes:
     #   - ./startups:/startups
 
-
   elitechoice-articles:
     container_name: elitechoice-articles
     image: laviz.azurecr.io/elitechoice/articles
