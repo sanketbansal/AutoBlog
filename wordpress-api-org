@@ -1,0 +1,136 @@
+import re, os, sys
+from requests.api import post
+import scrapy
+
+import requests
+import json, base64, re
+from datetime import datetime
+class WordpressORG:
+    access_token = ''
+    def authenticate(self):
+        auth = {
+            'username': 'shartech',
+            'password': '../shartech/#/2022',
+        }
+        response = requests.post('https://shartech.azurewebsites.net/wp-json' + '/jwt-auth/v1/token', data=auth).json()
+        print(response, '\n')
+        self.access_token = response['token']
+
+    def create_post(self, params):
+
+        if(self.access_token == ''):
+            print("Authenticating....", '\n')
+            self.authenticate()
+            print(self.access_token, "\n")
+
+        header = {'Authorization': 'Bearer ' + self.access_token}
+
+        wordpress_url = 'https://shartech.azurewebsites.net/wp-json' + '/wp/v2/posts/'
+        response = requests.post(wordpress_url, headers=header, data=params)
+
+        print("Posting....", '\n')
+        print(response.json(), '\n')
+        return response.json()['ID']
+
+    def edit_post(self, params, post_id):
+        if(self.access_token == ''):
+            print("Authenticating....", '\n')
+            self.authenticate()
+            print(self.access_token, "\n")
+
+        header = {'Authorization': 'Bearer ' + self.access_token}
+
+        wordpress_url = 'https://shartech.azurewebsites.net/wp-json' + '/wp/v2/posts/' + str(post_id)
+        response = requests.post(wordpress_url, headers=header, data=params)
+
+        print("Editing Post....", '\n')
+        print(response.json(), '\n')
+
+
+    def get_post(self, postid):
+        if(self.access_token == ''):
+            print("Authenticating....", '\n')
+            self.authenticate()
+            print(self.access_token, "\n")
+
+        header = {'Authorization': 'Bearer ' + self.access_token}
+
+        wordpress_url = 'https://shartech.azurewebsites.net/wp-json' + '/wp/v2/posts/' + str(postid)
+        response = requests.get(wordpress_url, headers=header)
+
+        print("Getting Post....", '\n')
+        print(response.json(), '\n')    
+
+    def list_posts(self):
+        if(self.access_token == ''):
+            print("Authenticating....", '\n')
+            self.authenticate()
+            print(self.access_token, "\n")
+
+        header = {'Authorization': 'Bearer ' + self.access_token}
+
+        wordpress_url = 'https://shartech.azurewebsites.net/wp-json' + '/wp/v2/posts/'
+        response = requests.get(wordpress_url, headers=header)
+
+        print("Getting all Posts....", '\n')
+        print(response.json(), '\n')    
+
+    def new_media(self, params):
+
+        if(self.access_token == ''):
+            print("Authenticating....", '\n')
+            self.authenticate()
+            print(self.access_token, "\n")
+
+        header = {'Authorization': 'Bearer ' + self.access_token}
+
+        wordpress_url = 'https://shartech.azurewebsites.net/wp-json' + '/wp/v2/media'
+        response = requests.post(wordpress_url, headers=header, data=params)
+
+        print("Uploading Media....", '\n')
+        print(response, '\n')
+        id = response.json()['media'][0]['ID']
+        return id
+
+    def edit_media(self, params, id):
+
+        if(self.access_token == ''):
+            print("Authenticating....", '\n')
+            self.authenticate()
+            print(self.access_token, "\n")
+
+        header = {'Authorization': 'Bearer ' + self.access_token}
+        wordpress_url = 'https://shartech.azurewebsites.net/wp-json' + '/wp/v2/media' + '/' + str(id)
+        response = requests.post(wordpress_url, headers=header, data=params)
+
+        print("Editing Media....", '\n')
+        print(response, '\n')
+
+    def get_media(self, id):
+        if(self.access_token == ''):
+            print("Authenticating....", '\n')
+            self.authenticate()
+            print(self.access_token, "\n")
+
+        header = {'Authorization': 'Bearer ' + self.access_token}
+        wordpress_url = 'https://shartech.azurewebsites.net/wp-json/' + '/wp/v2/media' + '/' + str(id)
+        response = requests.get(wordpress_url, headers=header)
+
+        print("Fetching Media....", '\n')
+        print(response.json(), '\n')
+
+    def list_media(self):
+        if(self.access_token == ''):
+            print("Authenticating....", '\n')
+            self.authenticate()
+            print(self.access_token, "\n")
+
+        header = {'Authorization': 'Bearer ' + self.access_token}
+        wordpress_url = 'https://shartech.azurewebsites.net/wp-json/' + '/wp/v2/media'
+        response = requests.get(wordpress_url, headers=header)
+
+        print("Fetching All Media....", '\n')
+        print(response.json(), '\n')
+
+wp_org = WordpressORG()
+wp_org.list_posts()

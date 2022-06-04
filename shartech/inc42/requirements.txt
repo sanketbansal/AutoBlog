@@ -1,0 +1,4 @@
+requests==2.25.1
+Scrapy==2.5.1
+azure-servicebus==7.3.4
+selenium==4.0.0

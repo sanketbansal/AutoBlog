@@ -84,3 +84,32 @@
       - 80:80
     # volumes:
     #   - ./startups:/startups
+
+
+  et-retail-pages:
+    container_name: et-retail-pages
+    image: laviz.azurecr.io/et-retail/pages
+    build:
+      context: ./et-retail
+      dockerfile: et-retail.dockerfile
+      args:
+        spider: pages
+        cnt: 1
+    ports:
+      - 80:80
+    # volumes:
+    #   - ./startups:/startups
+
+  et-retail-articles:
+    container_name: et-retail-articles
+    image: laviz.azurecr.io/et-retail/articles
+    build:
+      context: ./et-retail
+      dockerfile: et-retail.dockerfile
+      args:
+        spider: articles
+        cnt: 3
+    ports:
+      - 80:80
+    # volumes:
+    #   - ./startups:/startups

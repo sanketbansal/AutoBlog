@@ -47,14 +47,6 @@ class StartupSpider(scrapy.Spider):
             'password': 'sank@1902',
         }
 
-        # auth = {
-        #     'client_id': '77453',
-        #     'client_secret': '7b9RDuBX8kaLWQ2bt7d2EsSJGOww7BVDSQx3KdzNbP9bUYI4i4gU3kW0YAMMUk5G',
-        #     'redirect_uri': 'https://lavizz.com/',
-        #     'code': 'XjNDL5cUuk',
-        #     'grant_type':'authorization_code'
-        # }
-
         response = requests.post('https://public-api.wordpress.com/oauth2/token', data=auth).json()
         print(response, '\n')
         self.access_token = response['access_token']

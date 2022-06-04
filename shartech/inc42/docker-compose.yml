@@ -1,0 +1,44 @@
+ version: "3.7"
+
+ services:
+  inc42-pages:
+    container_name: inc42-pages
+    image: shartech.azurecr.io/inc42-pages
+    build:
+      context: ./
+      dockerfile: inc42.dockerfile
+      args:
+        spider: pages
+        cnt: 1
+    ports:
+      - 80:80
+    # volumes:
+    #   - ./inc42:/inc42
+
+  inc42-articles:
+    container_name: inc42-articles
+    image: shartech.azurecr.io/inc42-articles
+    build:
+      context: ./
+      dockerfile: inc42.dockerfile
+      args:
+        spider: articles
+        cnt: 1
+    ports:
+      - 80:80
+    # volumes:
+    #   - ./inc42:/inc42
+
+  inc42-seo:
+    container_name: inc42-seo
+    image: shartech.azurecr.io/inc42-seo
+    build:
+      context: ./
+      dockerfile: seo.dockerfile
+      args:
+        filename: seo
+        cnt: 1
+    ports:
+      - 80:80
+    # volumes:
+    #   - ./inc42:/inc42
